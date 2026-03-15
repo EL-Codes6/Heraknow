@@ -1,0 +1,236 @@
+        /* ==================== GLOBAL STYLES ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            overflow-x: hidden;
+            background-color: #050510; /* fallback */
+        }
+
+        /* ----- 3D Canvas Background ----- */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0; /* behind all content */
+        }
+
+        /* ----- Main Content Overlay (glass effect) ----- */
+        .content {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            pointer-events: none; /* allow click-through to canvas? No, we set pointer events on children */
+        }
+        .content * {
+            pointer-events: auto; /* but enable interactions on actual UI */
+        }
+
+        /* ----- Hero Section ----- */
+        header {
+            text-align: center;
+            padding: 4rem 1rem 3rem;
+            backdrop-filter: blur(8px);
+            background: rgba(10, 10, 30, 0.3);
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-shadow: 0 0 20px #00ffff, 0 0 40px #ff00ff;
+            animation: glow 3s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px cyan, 0 0 40px magenta; }
+            to { text-shadow: 0 0 30px lime, 0 0 60px yellow; }
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            margin-top: 1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* ----- Quiz Category Cards (Glassmorphism) ----- */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: rgba(20, 20, 50, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(40, 40, 80, 0.6);
+            border-color: rgba(255,255,255,0.6);
+            box-shadow: 0 20px 40px rgba(0,255,255,0.3);
+        }
+
+        .card h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* ----- Modal (Quiz Window) ----- */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: rgba(15, 15, 35, 0.95);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 30px;
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            color: white;
+            box-shadow: 0 0 60px rgba(0,200,255,0.3);
+            animation: modalPop 0.4s ease;
+        }
+
+        @keyframes modalPop {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            padding-bottom: 0.5rem;
+        }
+
+        .quiz-question {
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-option {
+            background: rgba(50,50,100,0.4);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quiz-option:hover {
+            background: rgba(100,100,200,0.6);
+            border-color: cyan;
+            transform: scale(1.02);
+        }
+
+        .quiz-option.selected {
+            background: #4a6fa5;
+            border-color: white;
+            box-shadow: 0 0 20px #4a6fa5;
+        }
+
+        .quiz-feedback {
+            font-size: 1.1rem;
+            margin: 1rem 0;
+            padding: 0.8rem;
+            border-radius: 10px;
+        }
+
+        .correct-feedback { background: rgba(0,255,0,0.2); color: #aaffaa; }
+        .incorrect-feedback { background: rgba(255,0,0,0.2); color: #ffaaaa; }
+
+        .quiz-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        button {
+            background: linear-gradient(45deg, #ff00cc, #3333ff);
+            border: none;
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px cyan;
+        }
+
+        .close-btn {
+            background: rgba(255,0,0,0.6);
+            float: right;
+            padding: 0.5rem 1.5rem;
+        }
+
+        .score {
+            font-size: 1.4rem;
+            margin-top: 1rem;
+            color: #ffd966;
+        }
+
+        /* ----- Footer ----- */
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 1.5rem;
+            backdrop-filter: blur(5px);
+            background: rgba(0,0,0,0.3);
+            border-radius: 20px;
+        }
+    

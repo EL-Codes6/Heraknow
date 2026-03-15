@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>HERA-KNOW – The Best Learning Platform in the World</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" type="module" defer></script> 
+    <!-- Google Fonts for modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Three.js for 3D animations -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js"
+            }
+        }
+    </script>
+   
+</head>
+<body>
+    <!-- 3D Canvas will be inserted here by Three.js -->
+    <div id="canvas-container"></div>
+
+    <!-- Main UI Content -->
+    <div class="content">
+        <header>
+            <h1>HERA-KNOW</h1>
+            <p class="tagline">The Best Learning Platform in the World</p>
+            <p style="margin-top: 1rem;">🚀 Immersive 3D • Quizzes • Endless Knowledge</p>
+        </header>
+
+        <!-- Quiz Category Cards -->
+        <section>
+            <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 2rem; text-shadow: 0 0 15px blue;">Choose Your Adventure</h2>
+            <div class="card-grid">
+                <div class="card" data-category="math">
+                    <h2>🧮 Math</h2>
+                    <p>Algebra, Geometry, Calculus</p>
+                </div>
+                <div class="card" data-category="science">
+                    <h2>🔬 Science</h2>
+                    <p>Physics, Chemistry, Biology</p>
+                </div>
+                <div class="card" data-category="history">
+                    <h2>🏛️ History</h2>
+                    <p>World Wars, Civilizations</p>
+                </div>
+                <div class="card" data-category="geography">
+                    <h2>🌍 Geography</h2>
+                    <p>Capitals, Mountains, Rivers</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fun Fact / Motivational Section -->
+        <div style="display: flex; justify-content: center; margin: 4rem 0;">
+            <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(8px); padding: 2rem; border-radius: 30px; max-width: 700px; border: 1px solid rgba(255,255,255,0.3);">
+                <p style="font-size: 1.5rem; font-style: italic;">"Learning is a treasure that will follow its owner everywhere."</p>
+                <p style="margin-top: 1rem;">– Pastor Christosin Olalere</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>✨ HERA-KNOW – Where knowledge meets the third dimension ✨</p>
+        </footer>
+    </div>
+
+    <!-- =============== QUIZ MODAL (hidden by default) =============== -->
+    <div id="quizModal" class="modal">
+        <div class="modal-content">
+            <span style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 id="modalCategoryTitle">Quiz</h2>
+                <button class="close-btn" onclick="closeModal()">Close</button>
+            </span>
+            <div id="quizArea">
+                <!-- JS will inject questions here -->
+            </div>
+        </div>
+    </div>
+
+   
+</body>
+</html>
